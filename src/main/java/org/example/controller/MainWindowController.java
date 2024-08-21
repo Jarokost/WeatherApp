@@ -5,8 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.example.view.ViewFactory;
 
-public class MainWindowController {
+public class MainWindowController extends BaseController {
 
     @FXML
     private Button buttonRefreshLeft;
@@ -85,6 +86,10 @@ public class MainWindowController {
 
     @FXML
     private Label labelRightTemp5;
+
+    public MainWindowController(ViewFactory viewFactory, String fxmlName) {
+        super(viewFactory, fxmlName);
+    }
 
     @FXML
     void clickButtonRefreshLeft(ActionEvent event) {
