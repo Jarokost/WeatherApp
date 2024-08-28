@@ -1,10 +1,8 @@
 package org.example;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.example.view.ViewFactory;
 
 public class App extends Application
 {
@@ -16,17 +14,7 @@ public class App extends Application
 
     @Override
     public void start(Stage stage) throws Exception {
-        Button button = new Button("Click!");
-        button.setOnAction(e -> {
-            System.out.println("Button clicked!");
-        });
-
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(button);
-
-        Scene scene = new Scene(stackPane, 300, 250);
-        stage.setScene(scene);
-        stage.show();
-
+        ViewFactory viewFactory = new ViewFactory();
+        viewFactory.showMainWindow();
     }
 }
