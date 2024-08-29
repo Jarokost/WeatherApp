@@ -102,11 +102,10 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     void clickButtonRefreshLeft(ActionEvent event) {
         GeoLocation geoLocation = new GeoLocation(cityLeft.getText(), countryLeft.getText());
-        GeoLocationService geoLocationService = new GeoLocationService(geoLocation, 1000);
+        GeoLocationService geoLocationService = new GeoLocationService(geoLocation, 1);
         geoLocationService.start();
         geoLocationService.setOnSucceeded(e -> {
                 System.out.println("lattitude: " + geoLocation.getLatitude() + " longitude: " + geoLocation.getLongitude());
-                System.out.println("event zakonczyl sie pomyslnie!");
             }
         );
     }
@@ -114,11 +113,10 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     void clickButtonRefreshRight(ActionEvent event) {
         GeoLocation geoLocation = new GeoLocation(cityRight.getText(), countryRight.getText());
-        GeoLocationService geoLocationService = new GeoLocationService(geoLocation, 10);
+        GeoLocationService geoLocationService = new GeoLocationService(geoLocation, 1);
         geoLocationService.start();
         geoLocationService.setOnSucceeded(e -> {
                     System.out.println("lattitude: " + geoLocation.getLatitude() + " longitude: " + geoLocation.getLongitude());
-                    System.out.println("event zakonczyl sie pomyslnie!");
                 }
         );
     }

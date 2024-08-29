@@ -13,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 public class GeoLocationService extends Service {
 
@@ -31,13 +30,6 @@ public class GeoLocationService extends Service {
             @Override
             protected Object call() throws Exception {
                 try {
-//                    System.out.println("uruchomiono task");
-//                    System.out.println("API_KEY" + APIKey.getApiKey());
-//                    System.out.println("GEO: " + geoLocation.getCity() + " " + geoLocation.getCountry());
-//                    BigDecimal lat = new BigDecimal("50.80") ;
-//                    geoLocation.setLatitude(lat);
-//                    BigDecimal lon = new BigDecimal("15.30") ;
-//                    geoLocation.setLongitude(lon);
                     getGeoLocation(geoLocation, APIKey.getApiKey(), msSleep);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -57,16 +49,16 @@ public class GeoLocationService extends Service {
 
             httpclient.execute(httpGet, response -> {
                 System.out.println("GET: " + response.getCode() + " " + response.getReasonPhrase());
-                final HttpEntity entity1 = response.getEntity();
+                final HttpEntity entity = response.getEntity();
 
-                String retSrc = EntityUtils.toString(entity1);
+                String jsonString = EntityUtils.toString(entity);
 
-                JSONArray result1 = new JSONArray(retSrc);
-                JSONObject result2 = result1.getJSONObject(0);
-                geoLocation.setLatitude(result2.getBigDecimal("lat"));
-                geoLocation.setLongitude(result2.getBigDecimal("lon"));
+                JSONArray jsonResultArray = new JSONArray(jsonString);
+                JSONObject jsonGeoObject = jsonResultArray.getJSONObject(0);
+                geoLocation.setLatitude(jsonGeoObject.getBigDecimal("lat"));
+                geoLocation.setLongitude(jsonGeoObject.getBigDecimal("lon"));
 
-                EntityUtils.consume(entity1);
+                EntityUtils.consume(entity);
                 return null;
             });
 
