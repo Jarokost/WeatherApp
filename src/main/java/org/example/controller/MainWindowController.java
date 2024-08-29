@@ -9,7 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.controller.services.APIKey;
 import org.example.controller.services.GeoLocationService;
+import org.example.controller.services.WeatherForecastService;
 import org.example.model.GeoLocation;
+import org.example.model.WeatherForecast;
 import org.example.view.ViewFactory;
 
 import java.net.URL;
@@ -104,10 +106,15 @@ public class MainWindowController extends BaseController implements Initializabl
         GeoLocation geoLocation = new GeoLocation(cityLeft.getText(), countryLeft.getText());
         GeoLocationService geoLocationService = new GeoLocationService(geoLocation, 1);
         geoLocationService.start();
-        geoLocationService.setOnSucceeded(e -> {
+        geoLocationService.setOnSucceeded(geoLocationEvent -> {
                 System.out.println("lattitude: " + geoLocation.getLatitude() + " longitude: " + geoLocation.getLongitude());
-            }
-        );
+                WeatherForecast weatherForecast = new WeatherForecast(geoLocation);
+                WeatherForecastService weatherForecastService = new WeatherForecastService(weatherForecast, 1);
+                weatherForecastService.start();
+                weatherForecastService.setOnSucceeded(weatherServiceEvent -> {
+                    displayWeatherLeft(weatherForecast);
+                });
+        });
     }
 
     @FXML
@@ -117,8 +124,30 @@ public class MainWindowController extends BaseController implements Initializabl
         geoLocationService.start();
         geoLocationService.setOnSucceeded(e -> {
                     System.out.println("lattitude: " + geoLocation.getLatitude() + " longitude: " + geoLocation.getLongitude());
+                    WeatherForecast weatherForecast = new WeatherForecast(geoLocation);
+                    WeatherForecastService weatherForecastService = new WeatherForecastService(weatherForecast, 1);
+                    weatherForecastService.start();
+                    weatherForecastService.setOnSucceeded(weatherServiceEvent -> {
+                        displayWeatherRight(weatherForecast);
+                    });
                 }
         );
+    }
+
+    private void displayWeatherLeft(WeatherForecast weatherForecast) {
+        labelLeftTemp1.setText(weatherForecast.getTemperature()[0].toString());
+        labelLeftTemp2.setText(weatherForecast.getTemperature()[1].toString());
+        labelLeftTemp3.setText(weatherForecast.getTemperature()[2].toString());
+        labelLeftTemp4.setText(weatherForecast.getTemperature()[3].toString());
+        labelLeftTemp5.setText(weatherForecast.getTemperature()[4].toString());
+    }
+
+    private void displayWeatherRight(WeatherForecast weatherForecast) {
+        labelRightTemp1.setText(weatherForecast.getTemperature()[0].toString());
+        labelRightTemp2.setText(weatherForecast.getTemperature()[1].toString());
+        labelRightTemp3.setText(weatherForecast.getTemperature()[2].toString());
+        labelRightTemp4.setText(weatherForecast.getTemperature()[3].toString());
+        labelRightTemp5.setText(weatherForecast.getTemperature()[4].toString());
     }
 
     @Override
