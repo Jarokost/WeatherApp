@@ -2,6 +2,7 @@ package org.example.controller;
 
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,7 +12,10 @@ import org.example.controller.services.GeoLocationService;
 import org.example.model.GeoLocation;
 import org.example.view.ViewFactory;
 
-public class MainWindowController extends BaseController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainWindowController extends BaseController implements Initializable {
 
     @FXML
     private Button buttonRefreshLeft;
@@ -98,7 +102,7 @@ public class MainWindowController extends BaseController {
     @FXML
     void clickButtonRefreshLeft(ActionEvent event) {
         GeoLocation geoLocation = new GeoLocation(cityLeft.getText(), countryLeft.getText());
-        GeoLocationService geoLocationService = new GeoLocationService(geoLocation);
+        GeoLocationService geoLocationService = new GeoLocationService(geoLocation, 1000);
         geoLocationService.start();
         geoLocationService.setOnSucceeded(e -> {
                 System.out.println("lattitude: " + geoLocation.getLatitude() + " longitude: " + geoLocation.getLongitude());
@@ -109,7 +113,21 @@ public class MainWindowController extends BaseController {
 
     @FXML
     void clickButtonRefreshRight(ActionEvent event) {
-
+        GeoLocation geoLocation = new GeoLocation(cityRight.getText(), countryRight.getText());
+        GeoLocationService geoLocationService = new GeoLocationService(geoLocation, 10);
+        geoLocationService.start();
+        geoLocationService.setOnSucceeded(e -> {
+                    System.out.println("lattitude: " + geoLocation.getLatitude() + " longitude: " + geoLocation.getLongitude());
+                    System.out.println("event zakonczyl sie pomyslnie!");
+                }
+        );
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        countryLeft.setText("Polska");
+        cityLeft.setText("Poznan");
+        countryRight.setText("Anglia");
+        cityRight.setText("Londyn");
+    }
 }

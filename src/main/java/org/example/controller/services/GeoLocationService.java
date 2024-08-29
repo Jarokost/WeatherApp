@@ -18,9 +18,11 @@ import java.math.BigDecimal;
 public class GeoLocationService extends Service {
 
     private GeoLocation geoLocation;
+    private long msSleep;
 
-    public GeoLocationService(GeoLocation geoLocation) {
+    public GeoLocationService(GeoLocation geoLocation, long msSleep) {
         this.geoLocation = geoLocation;
+        this.msSleep = msSleep;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class GeoLocationService extends Service {
 //                    geoLocation.setLatitude(lat);
 //                    BigDecimal lon = new BigDecimal("15.30") ;
 //                    geoLocation.setLongitude(lon);
-                    getGeoLocation(geoLocation, APIKey.getApiKey());
+                    getGeoLocation(geoLocation, APIKey.getApiKey(), msSleep);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -45,8 +47,9 @@ public class GeoLocationService extends Service {
         };
     }
 
-    private void getGeoLocation(GeoLocation geoLocation, String apiKey) {
+    private void getGeoLocation(GeoLocation geoLocation, String apiKey, long msSleep) {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            Thread.sleep(msSleep);
 
             String url = "https://api.openweathermap.org/geo/1.0/direct?q=" + geoLocation.getCity() + "," + geoLocation.getCountry() + "&appid=" + apiKey;
             ClassicHttpRequest httpGet = ClassicRequestBuilder.get(url)
@@ -67,7 +70,7 @@ public class GeoLocationService extends Service {
                 return null;
             });
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
