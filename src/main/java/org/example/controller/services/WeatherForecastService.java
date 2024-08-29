@@ -60,7 +60,9 @@ public class WeatherForecastService extends Service {
 
                 JSONObject result = new JSONObject(retSrc);
                 JSONArray tokenList = result.getJSONArray("list");
-                BigDecimal[] temperature = new BigDecimal[5];
+                BigDecimal[] temperatureDay = new BigDecimal[5];
+                BigDecimal[] temperatureNight = new BigDecimal[5];
+                String[] day = new String[5];
                 for(int i = 0, j = 0; i<40; i++) {
                     JSONObject oj = tokenList.getJSONObject(i);
                     Integer token = oj.getInt("dt");
@@ -69,11 +71,19 @@ public class WeatherForecastService extends Service {
                     BigDecimal temp = oj1.getBigDecimal("temp");
                     if(date_time.contains("12:00:00")) {
                         System.out.println("date_time: " + date_time + " temperature: " + temp);
-                        temperature[j] = temp;
+                        temperatureDay[j] = temp;
+                        day[j] = date_time.substring(5,10);
                         j++;
                     }
+                    if(date_time.contains("03:00:00")) {
+                        System.out.println("date_time: " + date_time + " temperature: " + temp);
+                        temperatureNight[j] = temp;
+                        day[j] = date_time.substring(5,10);
+                    }
                 }
-                weatherForecast.setTemperature(temperature);
+                weatherForecast.setTemperatureDay(temperatureDay);
+                weatherForecast.setTemperatureNight(temperatureNight);
+                weatherForecast.setDay(day);
 
                 EntityUtils.consume(entity);
                 return null;

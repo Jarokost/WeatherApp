@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 public class WeatherForecast {
 
     private GeoLocation geoLocation;
-    private BigDecimal[] temperature = new BigDecimal[5];
+    private BigDecimal[] temperatureDay = new BigDecimal[5];
+    private BigDecimal[] temperatureNight = new BigDecimal[5];
+    private String[] day = new String[5];
 
     public WeatherForecast(GeoLocation geoLocation) {
         this.geoLocation = geoLocation;
@@ -19,11 +21,27 @@ public class WeatherForecast {
         this.geoLocation = geoLocation;
     }
 
-    public BigDecimal[] getTemperature() {
-        return temperature;
+    public BigDecimal[] getTemperatureDay() {
+        return temperatureDay;
     }
 
-    public void setTemperature(BigDecimal[] temperature) {
-        this.temperature = temperature;
+    public void setTemperatureDay(BigDecimal[] temperatureDay) {
+        this.temperatureDay = temperatureDay;
+    }
+
+    public BigDecimal[] getTemperatureNight() {
+        return temperatureNight;
+    }
+
+    public void setTemperatureNight(BigDecimal[] temperatureNight) {
+        this.temperatureNight = temperatureNight;
+    }
+
+    public String[] getDay() {
+        return day;
+    }
+
+    public void setDay(String[] day) {
+        this.day = day;
     }
 }

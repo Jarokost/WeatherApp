@@ -135,19 +135,29 @@ public class MainWindowController extends BaseController implements Initializabl
     }
 
     private void displayWeatherLeft(WeatherForecast weatherForecast) {
-        labelLeftTemp1.setText(weatherForecast.getTemperature()[0].toString());
-        labelLeftTemp2.setText(weatherForecast.getTemperature()[1].toString());
-        labelLeftTemp3.setText(weatherForecast.getTemperature()[2].toString());
-        labelLeftTemp4.setText(weatherForecast.getTemperature()[3].toString());
-        labelLeftTemp5.setText(weatherForecast.getTemperature()[4].toString());
+        labelLeftDay1.setText(weatherForecast.getDay()[0]);
+        labelLeftDay2.setText(weatherForecast.getDay()[1]);
+        labelLeftDay3.setText(weatherForecast.getDay()[2]);
+        labelLeftDay4.setText(weatherForecast.getDay()[3]);
+        labelLeftDay5.setText(weatherForecast.getDay()[4]);
+        labelLeftTemp1.setText(weatherForecast.getTemperatureDay()[0].toString() + "\n" + "-----" + "\n" + weatherForecast.getTemperatureNight()[0].toString());
+        labelLeftTemp2.setText(weatherForecast.getTemperatureDay()[1].toString() + "\n" + "-----" + "\n" + weatherForecast.getTemperatureNight()[1].toString());
+        labelLeftTemp3.setText(weatherForecast.getTemperatureDay()[2].toString() + "\n" + "-----" + "\n" + weatherForecast.getTemperatureNight()[2].toString());
+        labelLeftTemp4.setText(weatherForecast.getTemperatureDay()[3].toString() + "\n" + "-----" + "\n" + weatherForecast.getTemperatureNight()[3].toString());
+        labelLeftTemp5.setText(weatherForecast.getTemperatureDay()[4].toString() + "\n" + "-----" + "\n" + weatherForecast.getTemperatureNight()[4].toString());
     }
 
     private void displayWeatherRight(WeatherForecast weatherForecast) {
-        labelRightTemp1.setText(weatherForecast.getTemperature()[0].toString());
-        labelRightTemp2.setText(weatherForecast.getTemperature()[1].toString());
-        labelRightTemp3.setText(weatherForecast.getTemperature()[2].toString());
-        labelRightTemp4.setText(weatherForecast.getTemperature()[3].toString());
-        labelRightTemp5.setText(weatherForecast.getTemperature()[4].toString());
+        labelRightDay1.setText(weatherForecast.getDay()[0]);
+        labelRightDay2.setText(weatherForecast.getDay()[1]);
+        labelRightDay3.setText(weatherForecast.getDay()[2]);
+        labelRightDay4.setText(weatherForecast.getDay()[3]);
+        labelRightDay5.setText(weatherForecast.getDay()[4]);
+        labelRightTemp1.setText(weatherForecast.getTemperatureDay()[0].toString() + "\n" + "-----" + "\n" + weatherForecast.getTemperatureNight()[0].toString());
+        labelRightTemp2.setText(weatherForecast.getTemperatureDay()[1].toString() + "\n" + "-----" + "\n" + weatherForecast.getTemperatureNight()[1].toString());
+        labelRightTemp3.setText(weatherForecast.getTemperatureDay()[2].toString() + "\n" + "-----" + "\n" + weatherForecast.getTemperatureNight()[2].toString());
+        labelRightTemp4.setText(weatherForecast.getTemperatureDay()[3].toString() + "\n" + "-----" + "\n" + weatherForecast.getTemperatureNight()[3].toString());
+        labelRightTemp5.setText(weatherForecast.getTemperatureDay()[4].toString() + "\n" + "-----" + "\n" + weatherForecast.getTemperatureNight()[4].toString());
     }
 
     @Override
