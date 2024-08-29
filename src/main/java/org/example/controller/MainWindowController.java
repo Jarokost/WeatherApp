@@ -5,6 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import org.example.controller.services.APIKey;
+import org.example.controller.services.GeoLocationService;
+import org.example.model.GeoLocation;
 import org.example.view.ViewFactory;
 
 public class MainWindowController extends BaseController {
@@ -93,7 +97,14 @@ public class MainWindowController extends BaseController {
 
     @FXML
     void clickButtonRefreshLeft(ActionEvent event) {
-
+        GeoLocation geoLocation = new GeoLocation(cityLeft.getText(), countryLeft.getText());
+        GeoLocationService geoLocationService = new GeoLocationService(geoLocation);
+        geoLocationService.start();
+        geoLocationService.setOnSucceeded(e -> {
+                System.out.println("lattitude: " + geoLocation.getLatitude() + " longitude: " + geoLocation.getLongitude());
+                System.out.println("event zakonczyl sie pomyslnie!");
+            }
+        );
     }
 
     @FXML
