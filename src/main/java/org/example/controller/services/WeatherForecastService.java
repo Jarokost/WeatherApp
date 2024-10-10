@@ -46,7 +46,7 @@ public class WeatherForecastService extends Service {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
 
             String url = "https://api.openweathermap.org/data/2.5/forecast?" +
-                    "lat=" + geoLocation.getLongitude() +
+                    "lat=" + geoLocation.getLatitude() +
                     "&lon=" + geoLocation.getLongitude() +
                     "&appid=" + apiKey +
                     "&units=" + "metric";
